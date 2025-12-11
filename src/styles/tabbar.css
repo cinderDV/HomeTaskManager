@@ -1,0 +1,6 @@
+.tabs-container{
+    background-color: slategrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
