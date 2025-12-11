@@ -1,6 +1,5 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import TabBar from "../components/TabBar";
 import '../styles/home.css'
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
         <h1>Bienvenido al Home</h1>
         <p>Usuario: {user?.username || user?.email}</p>
         <button onClick={handleLogout}>cerrar Sesion</button>
-        <TabBar></TabBar>
       </div>
     </>
 

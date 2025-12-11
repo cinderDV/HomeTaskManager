@@ -9,7 +9,10 @@ import PublicRoute from "./components/PublicRoute";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import User from "./pages/User";
+
 import "./index.css";
+import TabBar from "./components/TabBar";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,23 +20,27 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <Routes>
           {/* Rutas públicas */}
-          <Route 
-            path="/login" 
+          <Route path="/login" 
             element={
               <PublicRoute>
                 <Login />
               </PublicRoute>
-            } 
-          />
+          }/>
           {/* Rutas privadas */}
-          <Route 
-            path="/" 
+          <Route path="/" 
             element={
               <ProtectedRoute>
                 <Home />
+                <TabBar></TabBar>
               </ProtectedRoute>
-            } 
-          />
+          }/>
+          <Route path="/user" 
+            element={
+              <ProtectedRoute>
+                <User />
+                <TabBar></TabBar>
+              </ProtectedRoute>
+          }/>
 
           {/* Ruta catch-all: redirige cualquier ruta desconocida */}
           <Route path="*" element={<Navigate to="/" replace />} />
