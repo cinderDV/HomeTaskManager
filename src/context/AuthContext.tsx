@@ -27,8 +27,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(pb.authStore.record as User | null);
 
   useEffect(() => {
-    // Escuchar cambios en la autenticación
+    // Escuchar cambios en la autenticación con la declaracion del listener OnChange
+    // Este listener se ejecuta CADA VEZ que authStore cambia
     const unsubscribe = pb.authStore.onChange(() => {
+      console.log("🔄 onChange disparado");
+      console.log("🎫 Token:", pb.authStore.token ? "Presente" : "Ausente");
+      console.log("👤 Record:", pb.authStore.record);
       setUser(pb.authStore.record as User | null);
     });
 
@@ -38,14 +42,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (username: string, password: string) => {
-    // ✅ Removido el try/catch innecesario - deja que el error se propague
-    await loginService(username, password);
-    setUser(pb.authStore.record as User | null);
+    console.log("🔑 Intentando login...");
+    try {
+      await loginService(username, password);
+      console.log("✅ Login exitoso");
+      console.log("👤 Usuario logueado:", pb.authStore.record);
+      setUser(pb.authStore.record as User | null);
+    } catch (error) {
+      console.error("❌ Error en login:", error);
+      throw error; // Re-lanza el error para que el componente lo maneje
+    }
   };
 
   const logout = () => {
+    console.log("👋 Cerrando sesión...");
     logoutService();
     setUser(null);
+    console.log("✅ Sesión cerrada");
   };
 
   return (
