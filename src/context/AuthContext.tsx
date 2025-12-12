@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { RecordModel } from "pocketbase";
 
-import pb from "../lib/pb";
+import { pb } from "@/lib/pb";
 import { login as loginService, logout as logoutService } from "../services/authService";
 
 // Define tu interfaz de usuario extendiendo RecordModel

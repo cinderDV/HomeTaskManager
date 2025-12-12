@@ -1,0 +1,174 @@
+:root {
+    --bg-cream: #F3F0E6;
+    --text-main: #1A1A1A;
+    --border-black: 2px solid #1A1A1A;
+    --shadow-card: 4px 4px 0px #1A1A1A;
+    --accent-yellow: #F2C94C;
+}
+
+/* 1. Contenedor Principal: OCUPA TODA LA PANTALLA Y NO SCROLLEA */
+.tasks-container {
+    /* Ajustamos a la altura del viewport menos el padding del layout si existe */
+    height: 100%; 
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* IMPORTANTE: Mata el scroll exterior */
+    background-color: var(--bg-cream);
+    /* Reseteamos padding para manejarlo en los hijos */
+    padding: 0; 
+}
+
+/* 2. Parte Superior Fija */
+.tasks-fixed-top {
+    flex: 0 0 auto; /* No crece ni se encoge */
+    padding: 20px 16px 10px 16px; /* Padding superior */
+    background-color: var(--bg-cream); /* Para tapar lo que scrollea por debajo */
+    z-index: 10;
+    
+    /* Pequeña sombra inferior opcional para separar */
+    /* border-bottom: 2px solid rgba(0,0,0,0.05); */
+}
+
+/* Header Textos */
+.tasks-header {
+    margin-bottom: 1rem;
+}
+
+.tasks-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0;
+    color: var(--text-main);
+    letter-spacing: -1px;
+}
+
+.tasks-subtitle {
+    margin: 5px 0 0 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    border: var(--border-black);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+/* 3. Área de Scroll Interno */
+.tasks-scroll-area {
+    flex: 1; /* Ocupa todo el espacio restante */
+    overflow-y: auto; /* Aquí vive el scroll */
+    padding: 10px 16px; /* Padding lateral del contenido */
+    
+    /* IMPORTANTE: Espacio abajo para que el TabBar flotante no tape el último item */
+    padding-bottom: 140px; 
+}
+
+/* Grid Layout */
+.tasks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* --- ESTILOS DE LA TARJETA (Igual que antes) --- */
+.task-card {
+    position: relative;
+    background: #FFFFFF;
+    border: var(--border-black);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+    text-align: center;
+}
+
+.task-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #1A1A1A;
+}
+
+.task-image-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F8F8F8;
+    border-radius: 12px;
+    border: 1px dashed #CCC;
+    overflow: hidden;
+}
+
+.task-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.task-name {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-main);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.task-zone {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: 700;
+    background: #EEE;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.points-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--accent-yellow);
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border: var(--border-black);
+    border-radius: 20px;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    transform: rotate(5deg);
+    z-index: 2;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}

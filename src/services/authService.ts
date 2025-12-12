@@ -1,4 +1,4 @@
-import pb from "../lib/pb";
+import {pb} from "@/lib/pb";
 
 export async function login(username: string, password: string) {
   

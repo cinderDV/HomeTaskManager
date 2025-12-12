@@ -1,0 +1,177 @@
+:root {
+  --bg-cream: #F3F0E6;
+  --bg-white: #FFFFFF;
+  --text-main: #1A1A1A;
+  --border-black: 2px solid #1A1A1A;
+  --shadow-hard: 4px 4px 0px #1A1A1A;
+  --color-danger: #FF6B6B; /* Rojo para logout */
+}
+
+/* Contenedor General */
+.user-container {
+  padding: 1rem;
+  background-color: var(--bg-cream);
+  min-height: 100%; /* Ocupa el espacio disponible */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 1. Tarjeta de Perfil */
+.profile-card {
+  background: var(--bg-white);
+  border: var(--border-black);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-hard);
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* Avatar Frame - Aquí aplicamos el color dinámico del usuario */
+.avatar-frame {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #eee;
+  /* El borde y shadow se definen inline en React según el usuario */
+  border-width: 3px; 
+  border-style: solid;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.avatar-frame:hover {
+  transform: scale(1.05);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Texto */
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.profile-email {
+  margin: -5px 0 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.profile-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--text-main);
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* Botón Editar (flotante) */
+.edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  opacity: 0.6;
+}
+
+/* 2. Grid de Estadísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-box {
+  background: var(--bg-white);
+  border: var(--border-black);
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  box-shadow: 2px 2px 0px #1A1A1A;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #666;
+  font-weight: 600;
+}
+
+/* 3. Menú Lista */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-white);
+  border: var(--border-black);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.menu-item:active {
+  background: #eee;
+  transform: translate(2px, 2px);
+}
+
+/* 4. Botón Logout */
+.logout-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-danger);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: var(--border-black);
+  border-radius: 12px;
+  box-shadow: var(--shadow-hard);
+  cursor: pointer;
+  margin-top: auto; /* Empuja hacia abajo si sobra espacio */
+  transition: all 0.1s;
+}
+
+.logout-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}

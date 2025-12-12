@@ -1,202 +1,219 @@
-/* 1. Variables CSS (Custom Properties) */
-/* Esto hace que cambiar colores o espacios en el futuro sea trivial */
 :root {
-  --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-  --glass-bg: rgba(20, 20, 20, 0.7); /* Un poco más oscuro para mejor contraste */
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --primary-text: #ffffff;
-  --secondary-text: rgba(255, 255, 255, 0.6);
-  --accent-color: #ffffff; /* Color de foco y botón */
-  --btn-text: #000000;
-  --transition-speed: 0.3s;
+  /* Variables de Diseño Neo-Brutalism */
+  --bg-cream: #F3F0E6;       /* Fondo pantalla */
+  --bg-card: #FFFFFF;        /* Fondo tarjeta */
+  --text-main: #1A1A1A;      /* Negro principal */
+  --text-placeholder: #9CA3AF;
+  
+  --accent-primary: #2F80ED; /* Azul botón */
+  --accent-error-bg: #FFE4E4; /* Fondo error */
+  --accent-error-text: #D93025; /* Texto error */
+  
+  --border-width: 2px;
+  --shadow-hard: 6px 6px 0px var(--text-main); /* La sombra sólida característica */
+  --radius-card: 24px;
+  --radius-input: 12px;
 }
 
-/* Fondo general */
+/* 1. Contenedor Pantalla */
 .login-container {
   min-height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  
-  background: var(--bg-gradient);
-  /* Ruido sutil para evitar "banding" (rayas) en el degradado */
-  background-image: var(--bg-gradient), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-  
+  justify-content: center;
+  background-color: var(--bg-cream);
   padding: 1rem;
   box-sizing: border-box;
 }
 
-/* Tarjeta del login */
+/* 2. Tarjeta Principal (Form) */
 .login-form {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px); /* Aumentado para más legibilidad */
-  -webkit-backdrop-filter: blur(12px); /* Soporte Safari */
-  padding: 2.5rem 2rem;
-
+  background: var(--bg-card);
   width: 100%;
   max-width: 380px;
-  border-radius: 16px;
-
+  padding: 2.5rem 2rem;
+  
+  /* Estilo visual clave */
+  border: var(--border-width) solid var(--text-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hard);
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
-  
-  /* Uso de GAP en lugar de margins individuales (más limpio) */
-  gap: 1.5rem; 
-
-  /* Borde sutil brillante arriba para efecto de luz */
-  border: 1px solid var(--glass-border);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  gap: 1.5rem;
   box-sizing: border-box;
-}
-
-/* Logo */
-.login-logo {
-  width: 20%;
-  margin-bottom: 0.5rem; /* El resto lo maneja el 'gap' del padre */
-}
-
-/* Welcome Message */
-.welcome-message {
-  width: 100%;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-text);
   
-  /* Sombra más sutil y elegante */
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-
+  /* Animación de entrada */
   opacity: 0;
-  transform: translateY(10px); /* Movimiento positivo es más natural (subir) */
-  animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: cardEnter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Inputs */
+/* 3. Logo y Título */
+.login-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px; /* Ajuste visual */
+}
+
+.login-logo {
+  height: 200px; /* Ajusta según tu logo */
+  width: auto;
+  object-fit: contain;
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* 4. Inputs */
 .login-info {
   width: 100%;
-  padding: 0.9rem 1rem;
-  
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid transparent; /* Preparar para hover/focus */
-  border-bottom: 2px solid var(--glass-border);
-  border-radius: 6px; /* Bordes ligeramente redondeados modernizan */
-
-  color: var(--primary-text);
+  padding: 1rem;
   font-size: 1rem;
-
-  transition: all var(--transition-speed) ease;
+  font-weight: 500;
+  color: var(--text-main);
+  background: var(--bg-card);
+  
+  border: var(--border-width) solid var(--text-main);
+  border-radius: var(--radius-input);
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.05); /* Sombra sutil inicial */
+  
+  outline: none;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .login-info::placeholder {
-  color: var(--secondary-text);
-  font-size: 0.9rem;
-}
-
-/* Estados de interacción del Input (UX Crítico) */
-.login-info:hover {
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-placeholder);
 }
 
 .login-info:focus {
-  outline: none;
-  border-bottom-color: var(--accent-color);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Elevación al enfocar */
+  border-color: var(--text-main);
+  background: #FAFAFA;
+  /* Al enfocar, el input "sube" y proyecta sombra dura */
+  box-shadow: 4px 4px 0px var(--text-main);
+  transform: translate(-2px, -2px);
 }
 
-/* Botón */
-.login-btn {
-  width: 100%;
-  padding: 1rem;
-  margin-top: 0.5rem; /* Separación extra visual */
-
-  background: var(--accent-color);
-  border: none;
-  border-radius: 8px;
-
-  color: var(--btn-text);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
-  
-  box-sizing: border-box;
-}
-
-/* Interacciones del botón (Feedback visual) */
-.login-btn:hover {
-  filter: brightness(0.95); /* Oscurecer ligeramente */
-  transform: translateY(-2px); /* Efecto de elevación */
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3); /* Resplandor */
-}
-
-.login-btn:active {
-  transform: translateY(0); /* Efecto de presionar */
-  box-shadow: none;
-}
-
-/* Animación */
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 400px) {
-  .login-form {
-    padding: 2rem 1.5rem;
-    width: 90%; /* Mejor que px fijos */
-  }
-  
-  .welcome-message {
-    font-size: 1.25rem;
-  }
-  .login-logo {
-  width: 70%;
-  margin-bottom: 0.5rem; /* El resto lo maneja el 'gap' del padre */
-}
-
-}
+/* 5. Wrapper Password */
 .password-wrapper {
   position: relative;
   width: 100%;
 }
 
 .password-wrapper .login-info {
-  width: 100%;
-  padding-right: 2.5rem;
+  padding-right: 3rem;
 }
 
 .toggle-pass {
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  
   background: none;
   border: none;
+  padding: 4px;
   cursor: pointer;
-
+  color: var(--text-main);
+  opacity: 0.5;
+  transition: opacity 0.2s;
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0;
-
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
 }
 
 .toggle-pass:hover {
-  opacity: 0.6;
+  opacity: 1;
+}
+
+/* 6. Botón de Acción */
+.login-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  
+  border: var(--border-width) solid var(--text-main);
+  border-radius: var(--radius-input);
+  
+  /* Estado normal: sombra presente */
+  box-shadow: 4px 4px 0px var(--text-main);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--text-main);
+}
+
+.login-btn:active:not(:disabled) {
+  /* Efecto mecánico de click */
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px var(--text-main);
+}
+
+.login-btn:disabled {
+  background-color: #BDC3C7;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: translate(4px, 4px); /* Se queda hundido */
+}
+
+/* 7. Alerta de Error (Nuevo Estilo) */
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  background-color: var(--accent-error-bg);
+  color: var(--accent-error-text);
+  
+  padding: 0.8rem;
+  border: var(--border-width) solid var(--text-main);
+  border-radius: var(--radius-input);
+  
+  font-size: 0.9rem;
+  font-weight: 600;
+  
+  /* Pequeña animación de vibración */
+  animation: shake 0.4s ease-in-out;
+}
+
+/* 8. Animaciones */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 2rem 1.5rem;
+    width: 90%;
+    /* En móviles reducimos un poco la sombra */
+    box-shadow: 5px 5px 0px var(--text-main);
+  }
+  
+  .welcome-message {
+    font-size: 1.5rem;
+  }
 }
