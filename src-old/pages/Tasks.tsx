@@ -11,9 +11,11 @@ interface Tarea {
   Puntos: number;
   Zona: string;
   foto_ref: string;
+  
 }
 
 export default function Tasks() {
+
   const [tasks, setTasks] = useState<Tarea[]>([]);
   const [loading, setLoading] = useState(true);
 
