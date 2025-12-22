@@ -1,59 +1,170 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Home Task Manager
 
-## Getting Started
+Aplicación web para gestión de tareas del hogar, desarrollada con Next.js 16, React 19 y TypeScript.
 
-First, run the development server:
+## Descripción del Proyecto
 
+Home Task Manager es una aplicación moderna para organizar y gestionar tareas domésticas. El proyecto fue migrado recientemente de React + Vite a Next.js para aprovechar las ventajas del framework como:
+
+- Server-side rendering (SSR)
+- Routing basado en sistema de archivos
+- Optimizaciones automáticas de rendimiento
+- API routes integradas
+
+## Tecnologías Utilizadas
+
+- **Framework:** Next.js 16.0.10
+- **React:** 19.2.1
+- **TypeScript:** ^5
+- **Estilos:** Tailwind CSS 4
+- **Componentes UI:**
+  - Radix UI (componentes accesibles)
+  - shadcn/ui
+  - Lucide React (iconos)
+- **Testing:** Vitest + Playwright
+- **Linter:** ESLint 9
+
+## Requisitos Previos
+
+- Node.js (versión recomendada: 18 o superior)
+- npm, yarn, pnpm o bun
+
+## Instalación
+
+1. Clona el repositorio:
+```bash
+git clone <url-del-repositorio>
+cd HomeTaskManager
+```
+
+2. Instala las dependencias:
+```bash
+npm install
+```
+
+## Comandos Disponibles
+
+### Modo Desarrollo
 ```bash
 npm run dev
-# or
+# o
 yarn dev
-# or
+# o
 pnpm dev
-# or
+# o
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build de Producción
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Iniciar en Producción
+```bash
+npm run start
+```
 
-## Learn More
+### Linting
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Storybook (Documentación de Componentes)
+```bash
+npm run storybook
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estructura del Proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+HomeTaskManager/
+├── app/                    # App Router de Next.js
+│   ├── layout.tsx         # Layout principal
+│   ├── page.tsx           # Página de inicio (Login)
+│   ├── home/              # Ruta /home
+│   │   ├── page.tsx       # Vista principal
+│   │   └── user/          # Ruta /home/user
+│   │       └── page.tsx   # Perfil de usuario
+│   └── globals.css        # Estilos globales
+├── components/            # Componentes reutilizables
+│   ├── app-sidebar.tsx    # Barra lateral de navegación
+│   └── ui/                # Componentes UI (shadcn)
+├── lib/                   # Utilidades y helpers
+├── hooks/                 # Custom hooks de React
+├── src-old/              # Código legacy (React + Vite)
+└── public/               # Archivos estáticos
+```
 
-## Deploy on Vercel
+## Características Actuales
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Sistema de autenticación (en desarrollo)
+- Sidebar de navegación responsive
+- Sistema de breadcrumbs
+- Componentes UI accesibles con Radix UI
+- Diseño responsive con Tailwind CSS
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Historial de Migración
 
+### Paquetes Instalados Durante la Configuración Inicial
 
-
-creacion del proyecto
+```bash
+# Creación del proyecto
 npx create-next-app@latest home-tasks-manager-nextjs --yes
 
+# Storybook para documentación de componentes
 npm create storybook@latest
-run npm run storybook
 
+# Sistema de iconos
 npm install lucide-react
+
+# Configuración de shadcn/ui
 npx shadcn@latest init
- npm install @radix-ui/react-accordion
- npm install @radix-ui/react-slot
- npm install @radix-ui/react-label
- npm install @radix-ui/react-separator
- npm install @radix-ui/react-dialog
- npm install @radix-ui/react-tooltip
- npm install @radix-ui/react-menubar
+
+# Componentes Radix UI
+npm install @radix-ui/react-accordion
+npm install @radix-ui/react-slot
+npm install @radix-ui/react-label
+npm install @radix-ui/react-separator
+npm install @radix-ui/react-dialog
+npm install @radix-ui/react-tooltip
+npm install @radix-ui/react-menubar
 npm install @radix-ui/react-dropdown-menu
 npm install @radix-ui/react-avatar
 npm install @radix-ui/react-collapsible
+```
 
-#dejo como tarea ver de que manera manejar las redirecciones a las rutas que usa nextjs con los componentes integrados de sidebar
+## Tareas Pendientes
+
+- [ ] Implementar navegación entre rutas con componentes integrados de Next.js
+- [ ] Conectar con backend (PocketBase según código legacy)
+- [ ] Implementar sistema de autenticación completo
+- [ ] Migrar funcionalidad de gestión de tareas
+- [ ] Migrar vistas de estadísticas e historial
+- [ ] Configurar variables de entorno
+- [ ] Implementar tests con Vitest
+
+## Notas de Desarrollo
+
+- El proyecto utiliza la fuente Geist de Vercel, optimizada con `next/font`
+- El código legacy de React + Vite se mantiene en la carpeta `src-old/` para referencia
+- Se utiliza el App Router de Next.js (no Pages Router)
+
+## Despliegue
+
+La forma más sencilla de desplegar la aplicación es usando [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/app/building-your-application/deploying) para más detalles.
+
+## Recursos de Aprendizaje
+
+- [Documentación de Next.js](https://nextjs.org/docs) - características y API de Next.js
+- [Tutorial Interactivo de Next.js](https://nextjs.org/learn) - aprende Next.js paso a paso
+- [shadcn/ui](https://ui.shadcn.com/) - documentación de componentes UI
+- [Radix UI](https://www.radix-ui.com/) - primitivas de componentes accesibles
+
+
