@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import {
   BookOpen,
   Bot,
@@ -13,6 +14,7 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react"
+import { useAuth } from "@/context/AuthContext"
 
 import { NavMain } from "@/components/ui/nav-main"
 import { NavProjects } from "@/components/ui/nav-projects"
@@ -29,69 +31,37 @@ import {
 } from "@/components/ui/sidebar"
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Inicio",
+      url: "/home",
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-      ],
+      items: [],
     },
     {
-      title: "Documentation",
-      url: "#",
+      title: "Tareas",
+      url: "/home/tasks",
       icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      items: [],
     },
     {
-      title: "Settings",
-      url: "#",
+      title: "Historial",
+      url: "/home/history",
+      icon: Map,
+      items: [],
+    },
+    {
+      title: "Estadísticas",
+      url: "/home/stats",
+      icon: PieChart,
+      items: [],
+    },
+    {
+      title: "Perfil",
+      url: "/home/user",
       icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
+      items: [],
     },
   ],
   // navSecondary: [
@@ -126,21 +96,34 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth()
+
+  // Preparar datos del usuario para NavUser
+  const userData = user ? {
+    name: user.name || user.username || "Usuario",
+    email: user.email || "",
+    avatar: user.avatar || "",
+  } : {
+    name: "Usuario",
+    email: "",
+    avatar: "",
+  }
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/home">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">Home Task Manager</span>
+                  <span className="truncate text-xs">v1.0</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -151,7 +134,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>
   )

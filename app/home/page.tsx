@@ -1,56 +1,48 @@
 'use client'
-import { AppSidebar } from "@/components/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+import { useAuth } from "@/context/AuthContext"
 
-export default function Page() {
+export default function HomePage() {
+  const { user } = useAuth()
+
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/home/user">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-          </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+    <div className="flex flex-col h-full p-6">
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold">
+          Bienvenido{user?.name ? `, ${user.name}` : ""}
+        </h1>
+        <p className="text-muted-foreground">
+          ¡Listo para empezar a completar tareas!
+        </p>
+      </header>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
+        <div className="bg-card border rounded-lg p-6">
+          <h3 className="text-sm font-medium text-muted-foreground mb-2">
+            Puntos Totales
+          </h3>
+          <p className="text-3xl font-bold">0</p>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+
+        <div className="bg-card border rounded-lg p-6">
+          <h3 className="text-sm font-medium text-muted-foreground mb-2">
+            Tareas Completadas
+          </h3>
+          <p className="text-3xl font-bold">0</p>
+        </div>
+
+        <div className="bg-card border rounded-lg p-6">
+          <h3 className="text-sm font-medium text-muted-foreground mb-2">
+            Racha Actual
+          </h3>
+          <p className="text-3xl font-bold">0 días</p>
+        </div>
+      </div>
+
+      <div className="flex-1 bg-muted/50 rounded-xl flex items-center justify-center">
+        <p className="text-muted-foreground">
+          Contenido del dashboard en desarrollo
+        </p>
+      </div>
+    </div>
   )
 }
